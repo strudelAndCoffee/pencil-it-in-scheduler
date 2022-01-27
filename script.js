@@ -10,78 +10,84 @@ var rightNow = moment().format("H");
 var createTimeBlock = function() {
     for (var i = 9; i <= 17; i++) {
         var timeBlock = document.createElement("div");
+        if (i == 9) {
+            timeBlock.setAttribute("id", "09");
+        } else {
+            timeBlock.setAttribute("id", i);
+        }
         timeBlock.className = "col-12 d-flex justify-content-end align-items-stretch row";
 
         var hourEl = document.createElement("h3");
-        hourEl.className = "col-2 hour";
+        hourEl.className = "col-2 time-block-hour";
         hourEl.textContent = moment().hour(i).format("hA");
         timeBlock.appendChild(hourEl);
 
         var inputEl = document.createElement("textarea");
         var inputId = "input-" + i;
-        inputEl.setAttribute("id", inputId);
         inputEl.className = "col-9 description";
         timeBlock.appendChild(inputEl);
 
         var saveEl = document.createElement("div");
         saveEl.className = "col-1 d-flex justify-content-center align-items-center saveBtn";
         var saveBtn = document.createElement("span");
-        saveBtn.setAttribute("id", i);
+        saveBtn.setAttribute("id", "save-" + i);
         saveBtn.className = "oi oi-folder save-click";
         saveEl.appendChild(saveBtn);
         timeBlock.appendChild(saveEl);
 
         timeBlocksArr.push(timeBlock);
-        displayEl.appendChild(timeBlock);
     }
 };
 
-var timeBlockStatus = function(hour) {
+var timeBlockStatus = function(rightNow) {
 
     for (var i = 0; i < timeBlocksArr.length; i++) {
-        var thisBlock = timeBlocksArr[i].querySelector(".description");
+
+        var thisBlock = timeBlocksArr[i];
+        var thisBlockInput = thisBlock.querySelector("textarea");
         var thisBlockId = thisBlock.getAttribute("id");
-        var thisClass = thisBlock.getAttribute("class");
+        parseInt(thisBlockId);
 
-        if (thisBlockId > hour) {
-            thisBlock.className = thisClass + " future";
+        if (thisBlockId < rightNow) {
+            thisBlockInput.className = "col-9 description past";
         }
-        else if (thisBlockId == hour) {
-            thisBlock.className = thisClass + " present";
+        else if (thisBlockId == rightNow) {
+            thisBlockInput.className = "col-9 description present";
         }
-        else if (thisBlockId < hour) {
-            thisBlock.className = thisClass + " past";
+        else if (thisBlockId > rightNow) {
+            thisBlockInput.className = "col-9 description future"
         }
+        displayEl.appendChild(thisBlock);
     }
 };
 
-var saveInput = function(event) {
-    var target = event.target;
+// var saveInput = function(event) {
+//     var target = event.target;
 
-    if (target.matches(".save-click")) {
+//     if (target.matches(".save-click")) {
 
-        var blockId = target.getAttribute("id");
-        var timeBlock = document.querySelector("#input-" + blockId);
+//         var blockId = target.getAttribute("id");
+//         var timeBlock = document.querySelector("#input-" + blockId);
 
-        if (!timeBlock.value) {
-            console.log("nothing written");
-            return;
-        } else {
-            var timeBlockObj = [blockId, timeBlock.value]
-        }
+//         if (!timeBlock.value) {
+//             console.log("nothing written");
+//             return;
+//         } else {
+//             var timeBlockObj = [blockId, timeBlock.value]
+//         }
 
-        JSON.stringify(timeBlockObj);
-        localStorage.setItem("time-blocks", timeBlockObj);
-    }
-};
+//         JSON.stringify(timeBlockObj);
+//         localStorage.setItem("time-blocks", timeBlockObj);
+//     }
+// };
 
-var loadTimeBlocks = function() {
-    var savedBlock = localStorage.getItem("time-blocks");
-    console.log(savedBlock);
-};
+// var loadTimeBlocks = function() {
+//     var savedBlock = localStorage.getItem("time-blocks");
+//     console.log(savedBlock);
+// };
 
-document.addEventListener("click", saveInput);
+// document.addEventListener("click", saveInput);
 
 createTimeBlock();
 timeBlockStatus(rightNow);
-loadTimeBlocks();
+// loadTimeBlocks();
