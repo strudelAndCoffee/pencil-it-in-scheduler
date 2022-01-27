@@ -2,6 +2,7 @@ var displayEl = document.querySelector(".container");
 var timeBlockEl = document.getElementsByClassName("time-block");
 
 var timeBlocksArr = [];
+var savedTimeBlocks = [];
 
 var today = moment().format("dddd, MMMM Do");
 $("#currentDay").text(today);
@@ -23,7 +24,7 @@ var createTimeBlock = function() {
         timeBlock.appendChild(hourEl);
 
         var inputEl = document.createElement("textarea");
-        var inputId = "input-" + i;
+        inputEl.setAttribute("id", "input-save-" + i);
         inputEl.className = "col-9 description";
         timeBlock.appendChild(inputEl);
 
@@ -61,32 +62,31 @@ var timeBlockStatus = function(rightNow) {
     }
 };
 
-// var saveInput = function(event) {
-//     var target = event.target;
+var saveInput = function(event) {
+    var target = event.target;
 
-//     if (target.matches(".save-click")) {
+    if (target.matches(".save-click")) {
 
-//         var blockId = target.getAttribute("id");
-//         var timeBlock = document.querySelector("#input-" + blockId);
+        var saveId = target.getAttribute("id");
+        var timeBlock = displayEl.querySelector("#input-" + saveId).value;
 
-//         if (!timeBlock.value) {
-//             console.log("nothing written");
-//             return;
-//         } else {
-//             var timeBlockObj = [blockId, timeBlock.value]
-//         }
-
-//         JSON.stringify(timeBlockObj);
-//         localStorage.setItem("time-blocks", timeBlockObj);
-//     }
-// };
+        if (!timeBlock) {
+            console.log("nothing written");
+            return;
+        } else {
+            var timeBlockObj = [saveId, timeBlock]
+            savedTimeBlocks.push(timeBlockObj);
+        }
+        console.log(savedTimeBlocks);
+    }
+};
 
 // var loadTimeBlocks = function() {
 //     var savedBlock = localStorage.getItem("time-blocks");
 //     console.log(savedBlock);
 // };
 
-// document.addEventListener("click", saveInput);
+document.addEventListener("click", saveInput);
 
 createTimeBlock();
 timeBlockStatus(rightNow);
