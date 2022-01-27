@@ -1,6 +1,5 @@
 var displayEl = document.querySelector(".container");
 var timeBlockEl = document.getElementsByClassName("time-block");
-var saveBtnEl = document.getElementsByClassName("save-click");
 
 var timeBlocksArr = [];
  
@@ -28,7 +27,7 @@ var createTimeBlock = function() {
         var saveId = "save-" + i;
         saveEl.setAttribute("id", saveId);
         saveEl.className = "col-1 d-flex justify-content-center align-items-center saveBtn";
-        saveEl.innerHTML = "<span class='oi oi-folder'></span>";
+        saveEl.innerHTML = "<span class='oi oi-folder save-click'></span>";
         timeBlock.appendChild(saveEl);
 
         timeBlocksArr.push(timeBlock);
@@ -53,7 +52,15 @@ var timeBlockStatus = function(hour) {
             thisBlock.className = thisClass + " past";
         }
     }
-}
+};
+
+var saveInput = function(event) {
+    if (event.target.matches(".save-click")) {
+        console.log("save btn clicked");
+    }
+};
+
+document.addEventListener("click", saveInput);
 
 createTimeBlock();
 timeBlockStatus(rightNow);
