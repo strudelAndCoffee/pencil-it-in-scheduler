@@ -11,7 +11,7 @@ var rightNow = moment().format("H");
 var createTimeBlock = function() {
     for (var i = 9; i <= 17; i++) {
         var timeBlock = document.createElement("div");
-        timeBlock.className = "col-12 d-flex justify-content-end align-items-stretch time-block";
+        timeBlock.className = "col-12 d-flex justify-content-end align-items-stretch row";
 
         var hourEl = document.createElement("h3");
         hourEl.className = "col-2 hour";
@@ -19,15 +19,17 @@ var createTimeBlock = function() {
         timeBlock.appendChild(hourEl);
 
         var inputEl = document.createElement("textarea");
-        inputEl.setAttribute("id", i);
-        inputEl.className = "col-9 row description";
+        var inputId = "input-" + i;
+        inputEl.setAttribute("id", inputId);
+        inputEl.className = "col-9 description";
         timeBlock.appendChild(inputEl);
 
         var saveEl = document.createElement("div");
-        var saveId = "save-" + i;
-        saveEl.setAttribute("id", saveId);
         saveEl.className = "col-1 d-flex justify-content-center align-items-center saveBtn";
-        saveEl.innerHTML = "<span class='oi oi-folder save-click'></span>";
+        var saveBtn = document.createElement("span");
+        saveBtn.setAttribute("id", i);
+        saveBtn.className = "oi oi-folder save-click";
+        saveEl.appendChild(saveBtn);
         timeBlock.appendChild(saveEl);
 
         timeBlocksArr.push(timeBlock);
@@ -38,7 +40,7 @@ var createTimeBlock = function() {
 var timeBlockStatus = function(hour) {
 
     for (var i = 0; i < timeBlocksArr.length; i++) {
-        var thisBlock = timeBlocksArr[i].querySelector(".row");
+        var thisBlock = timeBlocksArr[i].querySelector(".description");
         var thisBlockId = thisBlock.getAttribute("id");
         var thisClass = thisBlock.getAttribute("class");
 
@@ -55,8 +57,13 @@ var timeBlockStatus = function(hour) {
 };
 
 var saveInput = function(event) {
-    if (event.target.matches(".save-click")) {
-        console.log("save btn clicked");
+    var target = event.target;
+
+    if (target.matches(".save-click")) {
+
+        var saveId = target.getAttribute("id");
+        var blockText = document.querySelector("#input-" + saveId);
+        console.log(saveId, blockText);
     }
 };
 
