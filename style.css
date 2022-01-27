@@ -21,11 +21,10 @@ textarea{
   border-bottom: 10px solid black;
 }
 
-/* Begin added style */
 .container {
   text-align: center;
+  padding-bottom: 5px;
 }
-/* End added style */
 
 .description{
   white-space: pre-wrap;
@@ -62,11 +61,14 @@ textarea{
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  border-bottom: 1px solid white;
   background-color: #06AED5;
   color: white;
 }
 
-.saveBtn i:hover {
+.saveBtn:hover {
   font-size: 20px;
+  color: darkgray;
   transition: all .3s ease-in-out;
+  cursor: pointer;
 }

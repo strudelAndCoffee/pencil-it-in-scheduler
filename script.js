@@ -1,6 +1,9 @@
 var displayEl = document.querySelector(".container");
-var timeBlocksEl = document.getElementsByClassName("row");
+var timeBlockEl = document.getElementsByClassName("time-block");
+var saveBtnEl = document.getElementsByClassName("save-click");
+
 var timeBlocksArr = [];
+ 
 
 var today = moment().format("dddd, MMMM Do");
 $("#currentDay").text(today);
@@ -9,7 +12,7 @@ var rightNow = moment().format("H");
 var createTimeBlock = function() {
     for (var i = 9; i <= 17; i++) {
         var timeBlock = document.createElement("div");
-        timeBlock.className = "col-12 d-flex justify-content-end align-items-stretch";
+        timeBlock.className = "col-12 d-flex justify-content-end align-items-stretch time-block";
 
         var hourEl = document.createElement("h3");
         hourEl.className = "col-2 hour";
@@ -23,8 +26,9 @@ var createTimeBlock = function() {
 
         var saveEl = document.createElement("div");
         var saveId = "save-" + i;
-        saveEl.className = "col-1 saveBtn";
         saveEl.setAttribute("id", saveId);
+        saveEl.className = "col-1 d-flex justify-content-center align-items-center saveBtn";
+        saveEl.innerHTML = "<span class='oi oi-folder'></span>";
         timeBlock.appendChild(saveEl);
 
         timeBlocksArr.push(timeBlock);
@@ -41,6 +45,12 @@ var timeBlockStatus = function(hour) {
 
         if (thisBlockId > hour) {
             thisBlock.className = thisClass + " future";
+        }
+        else if (thisBlockId == hour) {
+            thisBlock.className = thisClass + " present";
+        }
+        else if (thisBlockId < hour) {
+            thisBlock.className = thisClass + " past";
         }
     }
 }
