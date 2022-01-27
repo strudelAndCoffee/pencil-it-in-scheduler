@@ -21,15 +21,15 @@ textarea{
   border-bottom: 10px solid black;
 }
 
-.description{
-  white-space: pre-wrap;
-}
-
 /* Begin added style */
 .container {
   text-align: center;
 }
 /* End added style */
+
+.description{
+  white-space: pre-wrap;
+}
 
 .row {
   white-space: pre-wrap;
