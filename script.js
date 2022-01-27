@@ -2,7 +2,6 @@ var displayEl = document.querySelector(".container");
 var timeBlockEl = document.getElementsByClassName("time-block");
 
 var timeBlocksArr = [];
- 
 
 var today = moment().format("dddd, MMMM Do");
 $("#currentDay").text(today);
@@ -61,13 +60,28 @@ var saveInput = function(event) {
 
     if (target.matches(".save-click")) {
 
-        var saveId = target.getAttribute("id");
-        var blockText = document.querySelector("#input-" + saveId);
-        console.log(saveId, blockText);
+        var blockId = target.getAttribute("id");
+        var timeBlock = document.querySelector("#input-" + blockId);
+
+        if (!timeBlock.value) {
+            console.log("nothing written");
+            return;
+        } else {
+            var timeBlockObj = [blockId, timeBlock.value]
+        }
+
+        JSON.stringify(timeBlockObj);
+        localStorage.setItem("time-blocks", timeBlockObj);
     }
+};
+
+var loadTimeBlocks = function() {
+    var savedBlock = localStorage.getItem("time-blocks");
+    console.log(savedBlock);
 };
 
 document.addEventListener("click", saveInput);
 
 createTimeBlock();
 timeBlockStatus(rightNow);
+loadTimeBlocks();
