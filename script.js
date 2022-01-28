@@ -1,7 +1,7 @@
 var displayEl = document.querySelector(".container");
 var timeBlockEl = document.getElementsByClassName("time-block");
 
-var timeBlocksArr = [];
+var newTimeBlocks = [];
 var savedTimeBlocks = [];
 
 var today = moment().format("dddd, MMMM Do");
@@ -33,15 +33,15 @@ var createTimeBlock = function() {
         saveEl.appendChild(saveBtn);
         timeBlock.appendChild(saveEl);
 
-        timeBlocksArr.push(timeBlock);
+        newTimeBlocks.push(timeBlock);
     }
 };
 
 var timeBlockStatus = function(rightNow) {
 
-    for (var i = 0; i < timeBlocksArr.length; i++) {
+    for (var i = 0; i < newTimeBlocks.length; i++) {
 
-        var thisBlock = timeBlocksArr[i];
+        var thisBlock = newTimeBlocks[i];
         var thisBlockInput = thisBlock.querySelector("textarea");
         var thisBlockId = thisBlock.getAttribute("id");
         thisBlockId = 9 + parseInt(thisBlockId);
@@ -66,7 +66,7 @@ var saveTimeBlock = function(event) {
         var saveId = target.getAttribute("id");
         var timeBlockValue = displayEl.querySelector("#input-" + saveId).value;
 
-        for (var i = 0; i < timeBlocksArr.length; i++) {
+        for (var i = 0; i < newTimeBlocks.length; i++) {
             var timeBlockEl = document.getElementById(i);
             var thisSaveId = timeBlockEl.querySelector(".save-click").getAttribute("id");
             var thisText = timeBlockEl.querySelector("textarea").value;
@@ -77,18 +77,22 @@ var saveTimeBlock = function(event) {
             }      
         }
 
-        JSON.stringify(savedTimeBlocks);
-        localStorage.setItem("time-blocks", savedTimeBlocks);
+        localStorage.setItem("time-blocks", JSON.stringify(savedTimeBlocks));
     }
 };
 
-// var loadTimeBlocks = function() {
-//     var savedBlock = localStorage.getItem("time-blocks");
-//     console.log(savedBlock);
-// };
+var loadTimeBlocks = function() {
+    var currentTimeBlocks = JSON.parse(localStorage.getItem("time-blocks"));
+    
+    for (var i = 0; i < currentTimeBlocks.length; i++) {
+        var thisTimeBlock = document.getElementById(i);
+        var thisText = thisTimeBlock.querySelector("textarea");
+        thisText.value = currentTimeBlocks[i];
+    }
+};
 
 createTimeBlock();
 timeBlockStatus(rightNow);
-// loadTimeBlocks();
+loadTimeBlocks();
 
 displayEl.addEventListener("click", saveTimeBlock);
