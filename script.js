@@ -2,7 +2,9 @@ var displayEl = document.querySelector(".container");
 var timeBlockEl = document.getElementsByClassName("time-block");
 
 var newTimeBlocks = [];
-var savedTimeBlocks = [];
+// var savedTimeBlocks = ["", "", "", "", "", "", "", "", ""];
+var currentTimeBlocks = [];
+var savedTimeBlocks = JSON.parse(localStorage.getItem("time-blocks"));
 
 var today = moment().format("dddd, MMMM Do");
 $("#currentDay").text(today);
@@ -28,6 +30,7 @@ var createTimeBlock = function() {
         var saveEl = document.createElement("div");
         saveEl.className = "col-1 d-flex justify-content-center align-items-center saveBtn";
         var saveBtn = document.createElement("span");
+        saveBtn.setAttribute("data-div-id", i);
         saveBtn.setAttribute("id", (9 + i));
         saveBtn.className = "oi oi-folder save-click";
         saveEl.appendChild(saveBtn);
@@ -61,33 +64,61 @@ var timeBlockStatus = function(rightNow) {
 
 var saveTimeBlock = function(event) {
     var target = event.target;
+
     if (target.matches(".save-click")) {
-        
+
         var saveId = target.getAttribute("id");
-        var timeBlockValue = displayEl.querySelector("#input-" + saveId).value;
+        var i = target.getAttribute("data-div-id");
+        parseInt(i);
+        var textValue = displayEl.querySelector("#input-" + saveId).value;
+        var timeBlockObj = {
+            id: i,
+            text: textValue
+        };
+        currentTimeBlocks[i] = timeBlockObj;
+        localStorage.setItem("time-blocks", JSON.stringify(currentTimeBlocks));
 
-        for (var i = 0; i < newTimeBlocks.length; i++) {
-            var timeBlockEl = document.getElementById(i);
-            var thisSaveId = timeBlockEl.querySelector(".save-click").getAttribute("id");
-            var thisText = timeBlockEl.querySelector("textarea").value;
-            if (thisSaveId === saveId) {
-                savedTimeBlocks[i] = timeBlockValue;
-            } else {
-                savedTimeBlocks[i] = thisText;
-            }      
-        }
+        // if (!currentTimeBlocks) {
+        //     console.log("nothing saved in local storage");
+        //     return;
+        // } else {
+        //     currentTimeBlocks[i] = textValue;
+        // };
 
-        localStorage.setItem("time-blocks", JSON.stringify(savedTimeBlocks));
+        
+
+        // for (var i = 0; i < newTimeBlocks.length; i++) {
+        //     var timeBlockEl = document.getElementById(i);
+        //     var thisSaveId = timeBlockEl.querySelector(".save-click").getAttribute("id");
+        //     var thisText = timeBlockEl.querySelector("textarea").value;
+        //     if (thisSaveId === saveId) {
+        //         savedTimeBlocks[i] = timeBlockValue;
+        //     } else {
+        //         savedTimeBlocks[i] = thisText;
+        //     }      
+        // } 
     }
 };
 
 var loadTimeBlocks = function() {
-    var currentTimeBlocks = JSON.parse(localStorage.getItem("time-blocks"));
     
-    for (var i = 0; i < currentTimeBlocks.length; i++) {
-        var thisTimeBlock = document.getElementById(i);
-        var thisText = thisTimeBlock.querySelector("textarea");
-        thisText.value = currentTimeBlocks[i];
+    if (!savedTimeBlocks) {
+        console.log("nothing saved in local storage");
+        for (var i = 0; i < newTimeBlocks.length; i++) {
+            var tempObj = {
+                id: i,
+                text: ""
+            };
+            currentTimeBlocks.push(tempObj);
+        }
+        return;
+    }
+    else {
+        for (var i = 0; i < savedTimeBlocks.length; i++) {
+            var thisTimeBlock = document.getElementById(i);
+            var thisText = thisTimeBlock.querySelector("textarea");
+            thisText.value = savedTimeBlocks[i].text;
+        }
     }
 };
 
