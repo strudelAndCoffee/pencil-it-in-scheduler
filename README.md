@@ -2,13 +2,13 @@
 
 A simple browser-based day planner, where you can add notes for each hour of the work day. Notes can be saved and edited. The date displayed adjusts to the current date, and background color of each hour block changes when ahead of, during, or past current time.
 
-This application was created in 1 week as a weekly challenge for the University of Texas Code Boot Camp, utilizing third-party APIs, including Bootstrap and jQuery. Starter HTML and CSS code was provided by the University of Texas, except where otherwise stated. All JavaScript was developed by Stephen Trudell per the assignment requirements.
+https://strudelandcoffee.github.io/pencil-it-in-scheduler/
+
+This application was created in 1 week as a weekly challenge for the University of Texas Code Boot Camp, utilizing third-party APIs, including Bootstrap and Moment.js. Starter HTML and CSS code was provided by the University of Texas, except where otherwise stated. All JavaScript was developed by Stephen Trudell per the assignment requirements.
 
 ## UT Code Boot Camp - Week 5 Challenge Description:
 
 Create a simple calendar application that allows the user to save events for each hour of the day. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
-
-The starter code uses the [Moment.js](https://momentjs.com/) library to work with date and time, but you're free to use a different JavaScript solution to handle this functionality because Moment.js is considered a "legacy" product. Learn more about these other solutions in the [Moment.js project status page.](https://momentjs.com/docs/#/-project-status/).
 
 ## User Story
 
@@ -36,6 +36,6 @@ WHEN I refresh the page
     THEN the saved events persist
 ```
 
-The following animation demonstrates the application functionality:
+The following picture demonstrates the application UI:
 
-![Work Day Scheduler app with color-coded time slots shows a new event being typed in the 5PM slot.](./Assets/05-third-party-apis-homework-demo.gif)
+![Work Day Scheduler app with color-coded time slots shows a new events typed in text fields for certain hours.](./demo-screencap.png)
