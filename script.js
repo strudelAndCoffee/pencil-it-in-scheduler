@@ -9,29 +9,26 @@ $("#currentDay").text(today);
 var rightNow = moment().format("H");
 
 var createTimeBlock = function() {
-    for (var i = 9; i <= 17; i++) {
+
+    for (var i = 0; i < 9; i++) {
         var timeBlock = document.createElement("div");
-        if (i == 9) {
-            timeBlock.setAttribute("id", "09");
-        } else {
-            timeBlock.setAttribute("id", i);
-        }
+        timeBlock.setAttribute("id", i);
         timeBlock.className = "col-12 d-flex justify-content-end align-items-stretch row";
 
         var hourEl = document.createElement("h3");
         hourEl.className = "col-2 time-block-hour";
-        hourEl.textContent = moment().hour(i).format("hA");
+        hourEl.textContent = moment().hour(9 + i).format("hA");
         timeBlock.appendChild(hourEl);
 
         var inputEl = document.createElement("textarea");
-        inputEl.setAttribute("id", "input-save-" + i);
+        inputEl.setAttribute("id", "input-" + (9 + i));
         inputEl.className = "col-9 description";
         timeBlock.appendChild(inputEl);
 
         var saveEl = document.createElement("div");
         saveEl.className = "col-1 d-flex justify-content-center align-items-center saveBtn";
         var saveBtn = document.createElement("span");
-        saveBtn.setAttribute("id", "save-" + i);
+        saveBtn.setAttribute("id", (9 + i));
         saveBtn.className = "oi oi-folder save-click";
         saveEl.appendChild(saveBtn);
         timeBlock.appendChild(saveEl);
@@ -47,7 +44,7 @@ var timeBlockStatus = function(rightNow) {
         var thisBlock = timeBlocksArr[i];
         var thisBlockInput = thisBlock.querySelector("textarea");
         var thisBlockId = thisBlock.getAttribute("id");
-        parseInt(thisBlockId);
+        thisBlockId = 9 + parseInt(thisBlockId);
 
         if (thisBlockId < rightNow) {
             thisBlockInput.className = "col-9 description past";
@@ -62,22 +59,26 @@ var timeBlockStatus = function(rightNow) {
     }
 };
 
-var saveInput = function(event) {
+var saveTimeBlock = function(event) {
     var target = event.target;
-
     if (target.matches(".save-click")) {
-
+        
         var saveId = target.getAttribute("id");
-        var timeBlock = displayEl.querySelector("#input-" + saveId).value;
+        var timeBlockValue = displayEl.querySelector("#input-" + saveId).value;
 
-        if (!timeBlock) {
-            console.log("nothing written");
-            return;
-        } else {
-            var timeBlockObj = [saveId, timeBlock]
-            savedTimeBlocks.push(timeBlockObj);
+        for (var i = 0; i < timeBlocksArr.length; i++) {
+            var timeBlockEl = document.getElementById(i);
+            var thisSaveId = timeBlockEl.querySelector(".save-click").getAttribute("id");
+            var thisText = timeBlockEl.querySelector("textarea").value;
+            if (thisSaveId === saveId) {
+                savedTimeBlocks[i] = timeBlockValue;
+            } else {
+                savedTimeBlocks[i] = thisText;
+            }      
         }
-        console.log(savedTimeBlocks);
+
+        JSON.stringify(savedTimeBlocks);
+        localStorage.setItem("time-blocks", savedTimeBlocks);
     }
 };
 
@@ -86,8 +87,8 @@ var saveInput = function(event) {
 //     console.log(savedBlock);
 // };
 
-document.addEventListener("click", saveInput);
-
 createTimeBlock();
 timeBlockStatus(rightNow);
 // loadTimeBlocks();
+
+displayEl.addEventListener("click", saveTimeBlock);
