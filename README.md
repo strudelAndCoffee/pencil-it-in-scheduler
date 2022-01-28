@@ -2,7 +2,7 @@
 
 A simple browser-based day planner, where you can add notes for each hour of the work day. Notes can be saved and edited. The date displayed adjusts to the current date, and background color of each hour changes based on before/during/after current time.
 
-This application was created in 1 week as a weekly challenge project for the University of Texas Code Boot Camp. Starter HTML and CSS code was provided by the University of Texas, except where otherwise stated. All JavaScript was developed by Stephen Trudell per the assignment requirements.
+This application was created in 1 week as a weekly challenge for the University of Texas Code Boot Camp, utilizing third-party APIs, including Bootstrap and jQuery. Starter HTML and CSS code was provided by the University of Texas, except where otherwise stated. All JavaScript was developed by Stephen Trudell per the assignment requirements.
 
 ## UT Code Boot Camp - Week 5 Challenge Description:
 
