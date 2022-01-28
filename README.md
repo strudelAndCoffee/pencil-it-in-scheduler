@@ -1,8 +1,8 @@
 # Pencil-It-In Scheduler
 
-A simple browser-based day planner. Each hour of the work day displayed in a list, with text fields for adding notes, which you can edit and save. This application was created in 1 week as a weekly challenge project for the University of Texas Code Boot Camp.
+A simple browser-based day planner where you can add notes for each hour of the work day. Notes can be saved and edited. The date displayed adjusts to the current dat.
 
-Starter HTML and CSS code was provided by the University of Texas, except where otherwise stated. All JavaScript was developed by Stephen Trudell per the assignment requirements.
+This application was created in 1 week as a weekly challenge project for the University of Texas Code Boot Camp. Starter HTML and CSS code was provided by the University of Texas, except where otherwise stated. All JavaScript was developed by Stephen Trudell per the assignment requirements.
 
 ## UT Code Boot Camp - Week 5 Challenge Description:
 
