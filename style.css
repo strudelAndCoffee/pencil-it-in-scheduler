@@ -65,7 +65,6 @@ textarea {
 
 .saveBtn span:hover {
   font-size: 20px;
-  color: lightgray;
   transition: all .3s ease-in-out;
   cursor: pointer;
 }
