@@ -62,20 +62,19 @@ var timeBlockStatus = function(rightNow) {
 
 var loadTimeBlocks = function() {
 
-    if (!timeBlocks) {
+    if (!savedTimeBlocks) {
         console.log("nothing saved in local storage");
         return;
     }
     else {
-        for (var i = 0; i < timeBlocks.length; i++) {
+        for (var i = 0; i < savedTimeBlocks.length; i++) {
             var thisBlock = document.getElementById(i);
             var thisText = thisBlock.querySelector("textarea");
 
-            if (!timeBlocks[i].text) {
-                console.log("no text here");
+            if (!savedTimeBlocks[i].text) {
                 thisText.value = " ";
             } else {
-                thisText.value = timeBlocks[i].text;
+                thisText.value = savedTimeBlocks[i].text;
             }
         }
     }
