@@ -8,6 +8,7 @@ var timeBlocks = [];
 var savedTimeBlocks = JSON.parse(localStorage.getItem("time-blocks"));
 var newTimeBlocks = [];
 
+// generates time block elements and pushes them to newTimeBlocks array
 var createTimeBlock = function() {
 
     for (var i = 0; i < 9; i++) {
@@ -38,6 +39,7 @@ var createTimeBlock = function() {
     }
 };
 
+// changes the background color on all time blocks depending on current hour
 var timeBlockStatus = function(rightNow) {
 
     for (var i = 0; i < newTimeBlocks.length; i++) {
@@ -60,6 +62,7 @@ var timeBlockStatus = function(rightNow) {
     }
 };
 
+// loads any saved text from local storage to corresponding time block
 var loadTimeBlocks = function() {
 
     if (!savedTimeBlocks) {
@@ -80,6 +83,7 @@ var loadTimeBlocks = function() {
     }
 };
 
+// runs when a save button is clicked on a time block, identifies which block is being selected
 var saveBtnHandler = function(event) {
     var target = event.target;
 
@@ -99,6 +103,8 @@ var saveBtnHandler = function(event) {
     }
 };
 
+// pushes the text on the selected time block to timeBlocks array, runs for loop to keep all other time blocks' text the same,
+// saves timeBlocks array to local storage
 var saveTimeBlock = function(obj) {
     var thisTimeBlock = {
         id: obj.id,
@@ -146,3 +152,6 @@ createTimeBlock();
 timeBlockStatus(rightNow);
 loadTimeBlocks();
 displayEl.addEventListener("click", saveBtnHandler);
+
+// timeBlockStatus() every 5 minutes to change background color on time blocks if new hour elapses before page refresh/reload
+setInterval(timeBlockStatus, 5 * (60 * 1000));

@@ -21,6 +21,7 @@ textarea {
   border-bottom: 10px solid black;
 }
 
+/* added css for container class */
 .container {
   text-align: center;
   padding-bottom: 5px;
@@ -43,6 +44,7 @@ textarea {
   border-top: 1px dashed #000000;
 }
 
+/* removed "color: white;" for all 3 classes */
 .past {
   background-color: #d3d3d3;
 }
@@ -64,6 +66,7 @@ textarea {
   color: white;
 }
 
+/* added "cursor: pointer;" */
 .saveBtn span:hover {
   font-size: 20px;
   transition: all .3s ease-in-out;
